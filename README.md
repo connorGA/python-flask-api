@@ -47,3 +47,16 @@ We also showcase how you can use UI templates using the Flask render-template fu
 # Debugging
 
 This project has a vscode launch.json pre-configured for debugging your python application locally.
+
+# Breakout room activity
+
+Go into breakout rooms in groups of 2-3 and try to create a new post endpoint that will add records to a new collection. Once the record has been added, have the API endpoint return the ID of the newly created record. 
+
+## requirements
+
+1. You should create a new api endpoint that accepts POST http verbage requests
+2. This endpoint should accept data passed to the API in the reuqest body and format that data into a new object that can be used to create a new record inside of a new collection
+3. (optional): Feel free to create a schema function like we did for redditposts in our example, this is not required, but encouraged.
+4. use pymongo to insert your new record into a new collection.
+5. When the record is created successfully, return the String version of the ObjectId of our new record in the response of your newly created post endpoint. 
+6. Use postman to test your endpoint and once you'r confirmed that it is working, export your updated postman collection to a json file and add it to the postman folder in this project. 
