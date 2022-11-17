@@ -60,3 +60,8 @@ Go into breakout rooms in groups of 2-3 and try to create a new post endpoint th
 4. use pymongo to insert your new record into a new collection.
 5. When the record is created successfully, return the String version of the ObjectId of our new record in the response of your newly created post endpoint. 
 6. Use postman to test your endpoint and once you'r confirmed that it is working, export your updated postman collection to a json file and add it to the postman folder in this project. 
+
+# library documentation
+
+[Flask](https://flask.palletsprojects.com/en/2.2.x/installation/#python-version)
+[Pymongo](https://pymongo.readthedocs.io/en/stable/).
