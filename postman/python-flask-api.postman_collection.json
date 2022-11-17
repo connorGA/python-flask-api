@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "bb275ee7-1abe-453e-8f01-50431e25ae5b",
+		"name": "python-flask-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET: hello world",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: Profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/profile/{{username}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"profile",
+						"{{username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: Subreddit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/r/{{subreddit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"r",
+						"{{subreddit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: Multiply",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/multiply/3/5",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"multiply",
+						"3",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST: Create reddit post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "Tobey Todd",
+							"type": "default"
+						},
+						{
+							"key": "content",
+							"value": "This is our post content",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/subreddit/{{subreddit}}/{{userId}}?locale=US",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"subreddit",
+						"{{subreddit}}",
+						"{{userId}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "US"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT: Update reddit post",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "Updated user",
+							"type": "default"
+						},
+						{
+							"key": "content",
+							"value": "updated content for new user",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/subreddit/{{subreddit}}/{{userId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"subreddit",
+						"{{subreddit}}",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
