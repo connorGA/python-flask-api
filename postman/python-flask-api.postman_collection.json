@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "bb275ee7-1abe-453e-8f01-50431e25ae5b",
+		"_postman_id": "f1b6536e-5cff-4293-9045-309dae0b7888",
 		"name": "python-flask-api",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23893032"
 	},
 	"item": [
 		{
@@ -146,6 +147,64 @@
 						"subreddit",
 						"{{subreddit}}",
 						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: blogpost (by title)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/blogpost/{{title}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"blogpost",
+						"{{title}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST: Create blog post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "Connor",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "This is the blogpost made from the post route",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/blog/{{title}}/{{userId}}?locale=US",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"blog",
+						"{{title}}",
+						"{{userId}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "US"
+						}
 					]
 				}
 			},

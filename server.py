@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, render_template
+from bson.objectid import ObjectId
 import json
 from pymongo import MongoClient
 import bson.json_util as json_util
@@ -119,6 +120,130 @@ def create_subreddit(user_id, subreddit):
         subreddits = db.redditpost.find({'subreddit': subreddit})
         return json.loads(parse_json(subreddits))
         
+# ///////////////////////////////////////////////////////////////////////
+def create_blog_post_collection(db):
+    result = db.create_collection("blogpost", validator={
+        '$jsonSchema': {
+            'bsonType': 'object',
+            'additionalProperties': True,
+            'required': ['userName', 'content', 'date', 'title'],
+            'properties': {
+                'userName': {
+                    'bsonType': 'string'
+                },
+                'content': {
+                    'bsonType': 'string'
+                },
+                'title': {
+                    'bsonType': 'string'
+                },
+                'userid': {
+                    'bsonType': 'string'
+                },
+                'date': {
+                    'bsonType': 'date',
+                },
+                'location': {
+                    'bsonType': 'string'
+                }
+            }
+        }
+    })
+    print(result)
+
+@app.route("/blogpost/<string:title>")
+def blog(title):
+    titles = db.blogpost.find({'title': title})
+    pprint.pprint(titles)
+    return json.loads(parse_json(titles))
+
+
+@app.route("/blog/<string:title>/<string:user_id>", methods = ['POST', 'PUT'])
+def create_title(user_id, title):
+    data = request.form
+    # url?local=USa
+    location = request.args.get('locale')
+    if request.method == 'POST':
+        post = {
+            'userName': data.get('userName'),
+            'content': data.get('content'),
+            'date': datetime.now(),
+            'userid': user_id,
+            'title': title,
+            'location': location
+        }
+        post_id = db.blogpost.insert_one(post).inserted_id
+        return str(post_id)
+    if request.method == 'PUT':
+        filter = {
+            'title': title,
+            'userid': user_id
+        }
+        newValues = { '$set': {
+            'userName': data.get('userName'),
+            'content': data.get('content'),
+            'date': datetime.now(),
+        }}
+        db.blogpost.update_one(filter, newValues)
+        titles = db.blogpost.find({'title': title})
+        return json.loads(parse_json(titles))
+
+# ROMES ROUTES
+@app.route('/cars', methods = ['POST', 'GET'])
+def create_car():
+    data = request.form
+    if request.method == 'POST':
+        car = {
+            'make': data.get('make'),
+            'model': data.get('model'),
+            'date': datetime.now(),
+            'color': data.get('color'),
+            'mileage': data.get('mileage')
+        }
+        car_id = db.cars.insert_one(car).inserted_id
+        print('yoooo -> ', car_id)
+        new_car = db.cars.find_one({ '_id': car_id })
+        return json_util.dumps(new_car)
+    else:
+        cars = db.cars.find()
+        return json_util.dumps(cars)
+
+@app.route('/cars/<string:car_id>', methods= ['PUT', 'GET', 'DELETE'])
+def one_car(car_id):
+    data = request.form
+    print('this is a car', car_id)
+
+    if request.method == 'PUT':
+        '''update the car'''
+        car = {
+            'make': data.get('make'),
+            'model': data.get('model'),
+            'date': datetime.now(),
+            'color': data.get('color'),
+            'mileage': data.get('mileage')
+        }
+        db.cars.find_one_and_update({ '_id': ObjectId(car_id) }, { '$set': car })
+        updated_car = db.cars.find_one({'_id': ObjectId(car_id)})
+        return json_util.dumps(updated_car)
+
+    elif request.method == 'DELETE':
+        '''delete the car'''
+        response = db.cars.find_one_and_delete({ '_id': ObjectId(car_id)})
+        print('what is the response', response)
+        return json_util.dumps(response)
+    else:
+        car = db.cars.find_one({ '_id': ObjectId(car_id) })
+        # cars = db.cars.find()
+        # print('this is a car', car_id)
+        return json_util.dumps(car)
+
+
+
+
+
+
+
+
 
 # when a file is ran as the entry point of a project, its '__name__' global property will be '__main__', if the module was imported, this will instead be the name of the module
 # This conditional is to ensure that we do not run this server unintentionally if it wasn't the entry point for the project.
